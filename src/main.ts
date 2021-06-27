@@ -17,8 +17,8 @@ app.use( async (ctx, next) => {
   const {method, headers, url } = ctx.request
 
   console.log(`${method} ${url}`);
+  url.pathname = url.pathname.replace("//windy-goose-32.deno.dev", "")
   console.log(url.pathname);
-  console.log(url.protocol);
 
   await next()
   // console.log(`request served in ${perf} ms`);
