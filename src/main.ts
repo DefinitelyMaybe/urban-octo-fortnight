@@ -4,9 +4,9 @@ const app = new Application()
 const router = new Router()
 
 router
-  .get("/", (ctx) => {
+  .get("/", async (ctx) => {
     console.log("get the index html");
-    ctx.response.body = Deno.readTextFileSync("./public/index.html")
+    ctx.response.body = await fetch("./public/index.html")
   })
   .get("/style.css", (ctx) => {
     ctx.response.body = Deno.readTextFileSync("./public/style.css")
