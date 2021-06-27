@@ -4,9 +4,14 @@ const app = new Application()
 const router = new Router()
 
 router
-  .get("/", async (ctx) => {
+  .get("/", (ctx) => {
     console.log("get the index html");
-    ctx.response.body = await fetch("./public/index.html")
+    try {
+      ctx.response.body = Deno.readTextFileSync("./public/index.html") 
+    } catch (error) {
+      console.log(error);
+      ctx.response.body = "hello world"
+    }
   })
   .get("/style.css", (ctx) => {
     ctx.response.body = Deno.readTextFileSync("./public/style.css")
