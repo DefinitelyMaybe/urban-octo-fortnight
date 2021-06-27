@@ -15,6 +15,11 @@ app.use( async (ctx, next) => {
   // const perf = performance.now()
   const {method, headers, url} = ctx.request
   console.log(`${method} ${url}`);
+  console.log(url.host);
+  console.log(url.hostname);
+  console.log(url.href);
+  console.log(url.origin);
+  
   await next()
   // console.log(`request served in ${perf} ms`);
 })
