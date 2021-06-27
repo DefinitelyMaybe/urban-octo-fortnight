@@ -7,7 +7,7 @@ router
   .get("/", (ctx) => {
     console.log("get the index html");
     try {
-      ctx.response.body = fetch(new URL("/public/index.html", import.meta.surl))
+      ctx.response.body = fetch(new URL("public/index.html", import.meta.url))
     } catch (error) {
       console.log(error);
       ctx.response.body = "hello world"
@@ -24,7 +24,8 @@ app.use( async (ctx, next) => {
   url.pathname = url.pathname.replace("//windy-goose-32.deno.dev", "")
   console.log(`${method} ${url}`);
   console.log(import.meta.url);
-  console.log(new URL("/public/index.html", import.meta.url));
+  console.log(new URL("./public/index.html", import.meta.url).toString());
+  console.log(new URL("public/index.html", import.meta.url).toString());
   await next()
   // console.log(`request served in ${perf} ms`);
 })
