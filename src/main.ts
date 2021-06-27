@@ -26,7 +26,7 @@ app.use( async (ctx, next) => {
   console.log(`${method} ${url}`);
   console.log(import.meta.url);
   console.log(new URL("../public/index.html", import.meta.url).toString());
-  console.log(new URL("public/index.html", import.meta.url).toString());
+  
   await next()
   // console.log(`request served in ${perf} ms`);
 })
