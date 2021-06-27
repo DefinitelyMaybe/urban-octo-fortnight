@@ -24,6 +24,7 @@ app.use( async (ctx, next) => {
   url.pathname = url.pathname.replace("//windy-goose-32.deno.dev", "")
   console.log(`${method} ${url}`);
   console.log(import.meta.url);
+  console.log(new URL("/public/index.html", import.meta.url));
   await next()
   // console.log(`request served in ${perf} ms`);
 })
