@@ -12,10 +12,10 @@ router
   })
 
 app.use( async (ctx, next) => {
+  // const perf = performance.now()
   const {method, headers, url} = ctx.request
-  const perf = performance.now()
   await next()
-  console.log(`request served in ${perf} ms`);
+  // console.log(`request served in ${perf} ms`);
 })
 
 app.use(router.routes())
