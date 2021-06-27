@@ -7,7 +7,7 @@ router
   .get("/", (ctx) => {
     console.log("get the index html");
     try {
-      ctx.response.body = Deno.readTextFileSync("./public/index.html") 
+      ctx.response.body = fetch("./public/index.html") 
     } catch (error) {
       console.log(error);
       ctx.response.body = "hello world"
@@ -21,11 +21,8 @@ app.use( async (ctx, next) => {
   // const perf = performance.now()
   const {method, headers, url } = ctx.request
 
-  console.log(`${method} ${url}`);
   url.pathname = url.pathname.replace("//windy-goose-32.deno.dev", "")
-  console.log(url.pathname);
-  console.log(import.meta.url);
-  console.log(import.meta.main);
+  console.log(`${method} ${url}`);
 
   await next()
   // console.log(`request served in ${perf} ms`);
