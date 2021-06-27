@@ -1,11 +1,24 @@
-// In Deno Deploy, the BroadcastChannel API provides a communication
-// mechanism between the various instances; a simple message bus 
-// that connects the various Deploy instances world wide.
+import { Application, Router } from "./deps.ts";
 
-addEventListener("fetch", (event) => {
-  const response = new Response("Hello World!", {
-    headers: { "content-type": "text/plain" },
-  });
-  console.log(crypto.randomUUID());
-  event.respondWith(response);
-});
+const app = new Application()
+const router = new Router()
+
+router
+  .get("/", (ctx) => {
+    ctx.response.body = Deno.readTextFileSync("./public/index.html")
+  })
+  .get("/style.css", (ctx) => {
+    ctx.response.body = Deno.readTextFileSync("./public/style.css")
+  })
+
+app.use( async (ctx, next) => {
+  const {method, headers, url} = ctx.request
+  const perf = performance.now()
+  await next()
+  console.log(`request served in ${perf} ms`);
+})
+
+app.use(router.routes())
+app.use(router.allowedMethods())
+
+addEventListener("fetch", app.fetchEventHandler());
