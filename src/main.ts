@@ -4,17 +4,18 @@ const app = new Application()
 const router = new Router()
 
 router
-  .get("/", (ctx) => {
+  .get("/", async (ctx) => {
     console.log("get the index html");
     try {
-      ctx.response.body = fetch(new URL("public/index.html", import.meta.url))
+      ctx.response.body = await fetch(new URL("public/index.html", import.meta.url))
+      ctx.response.headers.set("content-type", "text/html; charset=UTF-8")
     } catch (error) {
       console.log(error);
       ctx.response.body = "hello world"
     }
   })
   .get("/style.css", (ctx) => {
-    ctx.response.body = Deno.readTextFileSync("./public/style.css")
+    // ctx.response.body = Deno.readTextFileSync("./public/style.css")
   })
 
 app.use( async (ctx, next) => {
