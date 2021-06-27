@@ -7,7 +7,7 @@ router
   .get("/", (ctx) => {
     console.log("get the index html");
     try {
-      ctx.response.body = fetch("./public/index.html") 
+      ctx.response.body = fetch(new URL("/public/index.html", import.meta.url))
     } catch (error) {
       console.log(error);
       ctx.response.body = "hello world"
