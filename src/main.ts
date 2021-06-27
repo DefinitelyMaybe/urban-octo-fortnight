@@ -14,6 +14,7 @@ router
 app.use( async (ctx, next) => {
   // const perf = performance.now()
   const {method, headers, url} = ctx.request
+  console.log(`${method} ${url}`);
   await next()
   // console.log(`request served in ${perf} ms`);
 })
